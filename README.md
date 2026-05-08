@@ -54,6 +54,35 @@ Type-check only:
 pnpm run typecheck
 ```
 
+## Testing
+
+This project uses Jest with ts-jest for TypeScript-based tests.
+
+Run all tests once:
+
+```bash
+pnpm run test
+```
+
+Run tests in watch mode:
+
+```bash
+pnpm run test:watch
+```
+
+Test file location:
+
+- `tests/atm.spec.ts`
+
+What is currently covered:
+
+- `login` command behavior (new user creation + initial balance output)
+- `deposit` command behavior (auto-paying debt first)
+- `transfer` command behavior (debt offset scenario from Example Session)
+- `withdraw` command behavior (successful balance deduction)
+- `logout` command behavior
+- `exit` command behavior
+
 ## Available Commands
 
 - `login [name]`:
@@ -170,6 +199,12 @@ From `devDependencies`:
   Runs TypeScript files directly in Node.js for development.
 - `@types/node`:
   Type definitions for Node.js APIs.
+- `jest`:
+  JavaScript/TypeScript test runner used for unit/integration-style command tests.
+- `ts-jest`:
+  Transformer that allows Jest to execute TypeScript test files.
+- `@types/jest`:
+  Type definitions for Jest globals (`describe`, `it`, `expect`, etc.).
 
 ## Project Scripts
 
@@ -177,6 +212,8 @@ From `devDependencies`:
 - `pnpm run dev:watch`: run CLI with file watching.
 - `pnpm run build`: compile TypeScript to `dist/`.
 - `pnpm run typecheck`: run TypeScript checks without output files.
+- `pnpm run test`: run test suite once.
+- `pnpm run test:watch`: run tests in watch mode.
 - `pnpm start`: run compiled JavaScript from `dist/`.
 
 ## Notes
