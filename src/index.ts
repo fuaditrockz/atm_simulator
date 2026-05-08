@@ -1,1 +1,7 @@
-console.log("ATM Simulator TypeScript setup is ready.");
+import ATMProject from "./atm/index.js";
+
+const runProject = async () => {
+  await ATMProject();
+};
+
+runProject();
