@@ -5,17 +5,30 @@ export const questionColor = clc.xterm(45);
 export const errorColor = clc.xterm(198);
 export const botColor = clc.xterm(190);
 
-const rlInterface = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+let rlInterface: readline.Interface | null = null;
+
+function getInterface(): readline.Interface {
+  if (!rlInterface) {
+    rlInterface = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+  }
+
+  return rlInterface;
+}
 
 export const createQuestion = (question: string): Promise<string> => {
   return new Promise((resolve) => {
-    rlInterface.question(questionColor(question), (answer: string) => {
+    getInterface().question(questionColor(question), (answer: string) => {
       resolve(answer);
     });
   });
 };
 
-export default rlInterface;
+export const closeInterface = () => {
+  if (rlInterface) {
+    rlInterface.close();
+    rlInterface = null;
+  }
+};

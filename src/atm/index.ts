@@ -1,5 +1,6 @@
-import rlInterface, {
+import {
   botColor,
+  closeInterface,
   createQuestion,
   errorColor,
 } from "../helpers/index.js";
@@ -209,13 +210,31 @@ function processCommand(input: string): boolean {
   }
 }
 
+// Reset state ATM, dipakai untuk membuat test lebih konsisten.
+function resetState() {
+  for (const name of Object.keys(customers)) {
+    delete customers[name];
+  }
+
+  for (const name of Object.keys(debts)) {
+    delete debts[name];
+  }
+
+  currentUser = null;
+}
+
+export const __testing = {
+  processCommand,
+  resetState,
+};
+
 // Menjalankan loop CLI ATM sampai user mengetik perintah "exit".
 const ATMProject = async () => {
   while (true) {
     const answer = String(await createQuestion("$ ")).trim();
     const shouldContinue = processCommand(answer);
     if (!shouldContinue) {
-      rlInterface.close();
+      closeInterface();
       break;
     }
   }
