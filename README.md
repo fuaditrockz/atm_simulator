@@ -104,6 +104,18 @@ What is currently covered:
 - If user A later deposits money, debt repayment is done automatically first.
 - If user B transfers back to user A while user A owes B, the transfer first offsets that debt.
 
+## Assumptions & Deviations
+
+### Assumptions
+
+- User names are case-insensitive for command matching but stored as-is in state.
+- Amount input can be passed with or without `$` prefix (e.g., `deposit 100` or `deposit $100`).
+- When a user transfers to a non-existent target, the target account is automatically created (not explicitly required by problem statement, but inferred as necessary behavior).
+
+### Deviations
+
+- None significant. Implementation strictly follows the Example Session in problem statement.
+
 ## Complete Example Session (Input + Output)
 
 Notes:
@@ -152,20 +164,20 @@ Your balance is $210
 Owed $40 from Bob
 
 $ transfer Bob 30
-Transferred $20 to Bob
-Your balance is $190
+Your balance is $210
+Owed $10 from Bob
 
 $ logout
 Goodbye, Alice!
 
 $ login Bob
 Hello, Bob!
-Your balance is $20
+Your balance is $0
 Owed $10 to Alice
 
 $ deposit 100
 Transferred $10 to Alice
-Your balance is $110
+Your balance is $90
 
 $ withdraw 50
 Your balance is $60
@@ -216,7 +228,20 @@ From `devDependencies`:
 - `pnpm run test:watch`: run tests in watch mode.
 - `pnpm start`: run compiled JavaScript from `dist/`.
 
+## How to Submit
+
+When submitting this solution:
+
+1. Include the `.git` folder (full Git history).
+2. Do NOT include:
+   - `node_modules/` folder
+   - `dist/` build output folder
+   - `.DS_Store` or other OS-specific files
+3. Include the `start.sh` script (already executable).
+4. Include all source files, tests, configuration files, and this README.
+
 ## Notes
 
 - App state is in-memory only (no database/file persistence).
 - Restarting the process resets all users and balances.
+- Each execution of `start.sh` creates a fresh environment as required.
